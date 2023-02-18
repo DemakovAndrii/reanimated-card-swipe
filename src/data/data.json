@@ -2,43 +2,43 @@
   {
     "id": 1,
     "name": "name1",
-    "text": "texsadxttexttext",
+    "text": "texttexttexttexttexttexttexttexttexttextdsadastexttexttexttexttexttexttexttexttexttexttextdsadastext",
     "photo": "ph.png"
   },
   {
     "id": 2,
     "name": "name2",
-    "text": "texttexttexttexttexttexttexttexttexttextdsadastext",
+    "text": "texttexttexttexttexttexttexttexttexttextdsadastexttexttexttexttexttexttexttexttexttexttextdsadastext",
     "photo": "ph.png"
   },
   {
     "id": 3,
     "name": "name3",
-    "text": "texttexttexttextteasdxttexttexttexttext",
+    "text": "texttexttexttexttexttexttexttexttexttextdsadastext",
     "photo": "ph.png"
   },
   {
     "id": 4,
     "name": "name4",
-    "text": "texttexttexttextext",
+    "text": "texttexttextttexttexttexttexttexttexttexttexttexttextdsadastextextext",
     "photo": "ph.png"
   },
   {
     "id": 5,
     "name": "name5",
-    "text": "texttexttexttexttexttexttexttexttext",
+    "text": "texttexttextttexttexttexttexttexttexttexttexttexttextdsadastextexttexttexttexttexttext",
     "photo": "ph.png"
   },
   {
     "id": 6,
     "name": "name6",
-    "text": "texttexttexttexttexttexttexttexttexttexttexttexttexttexttexttext",
+    "text": "texttexttexttextexttexttexttexttexttexttexttexttexttextdsadastextttexttexttexttexttexttexttexttexttexttexttexttext",
     "photo": "ph.png"
   },
   {
     "id": 7,
     "name": "name7",
-    "text": "texttexttexttexttexttexttexttext",
+    "text": "texttexttexttexttexttexttexttexttexttexttexttexttexttextdsadastexttexttexttexttext",
     "photo": "ph.png"
   }
 ]

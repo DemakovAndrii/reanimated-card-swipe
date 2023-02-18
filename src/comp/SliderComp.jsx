@@ -1,7 +1,6 @@
 import {Image, StyleSheet, Text, View, useWindowDimensions} from 'react-native';
 import React, {useState} from 'react';
 import data from '../data/data.json';
-import ph from '../data/ph.png';
 import Animated, {
   interpolate,
   interpolateColor,
@@ -11,7 +10,11 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
-import {Gesture, GestureDetector} from 'react-native-gesture-handler';
+import {
+  Gesture,
+  GestureDetector,
+  ScrollView,
+} from 'react-native-gesture-handler';
 
 const SliderComp = () => {
   const [activeId, setActiveId] = useState(0);
@@ -76,10 +79,12 @@ const SliderComp = () => {
           height,
           backgroundColor: 'black',
         }}>
-        <Animated.View style={[animatedStyle, styles.card, {height, width}]}>
-          <Text style={styles.text}>{data[activeId].name}</Text>
-          <Text style={styles.text}>{data[activeId].text}</Text>
-        </Animated.View>
+        <ScrollView>
+          <Animated.View style={[animatedStyle, styles.card, {width}]}>
+            <Text style={styles.text}>{data[activeId].name}</Text>
+            <Text style={styles.text}>{data[activeId].text}</Text>
+          </Animated.View>
+        </ScrollView>
       </View>
     </GestureDetector>
   );
@@ -97,5 +102,6 @@ const styles = StyleSheet.create({
     fontSize: 32,
     maxWidth: 300,
     textAlign: 'center',
+    lineHeight: 285,
   },
 });
