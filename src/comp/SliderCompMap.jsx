@@ -26,106 +26,99 @@ const SliderCompMap = () => {
   const [activeId, setActiveId] = useState(0);
   const {width, height} = useWindowDimensions();
 
-  // const position = useSharedValue(0);
-  // const scaleAnimation = useSharedValue(1);
+  const position = useSharedValue(0);
+  const scaleAnimation = useSharedValue(1);
 
-  // const nextHandler = () => {
-  //   if (activeId + 1 < data.length) {
-  //     setActiveId(activeId + 1);
-  //   }
-  // };
-  // const prevHandler = () => {
-  //   if (activeId > 0) {
-  //     setActiveId(activeId - 1);
-  //   }
-  // };
+  const nextHandler = () => {
+    if (activeId + 1 < data.length) {
+      setActiveId(activeId + 1);
+    }
+  };
+  const prevHandler = () => {
+    if (activeId > 0) {
+      setActiveId(activeId - 1);
+    }
+  };
 
-  // const panGesture = Gesture.Pan()
-  //   .onUpdate(e => {
-  //     position.value = e.translationX;
-  //     if (position.value > 0) {
-  //       scaleAnimation.value = withSpring(1 - position.value * 0.0004);
-  //     } else {
-  //       scaleAnimation.value = withSpring(1 + position.value * 0.0004);
-  //     }
-  //   })
+  const panGesture = Gesture.Pan()
+    .onUpdate(e => {
+      position.value = e.translationX;
+      if (position.value > 0) {
+        scaleAnimation.value = withSpring(1 - position.value * 0.0004);
+      } else {
+        scaleAnimation.value = withSpring(1 + position.value * 0.0004);
+      }
+    })
 
-  //   .onEnd(e => {
-  //     if (position.value > 50) {
-  //       position.value = withTiming(0, {duration: 100});
-  //       runOnJS(prevHandler)();
-  //     } else if (position.value < -50) {
-  //       position.value = withTiming(0, {duration: 100});
-  //       runOnJS(nextHandler)();
-  //     } else {
-  //       position.value = withTiming(0, {duration: 100});
-  //     }
-  //     scaleAnimation.value = withSpring(1);
-  //   });
-  // const animatedStyle = useAnimatedStyle(() => ({
-  //   transform: [
-  //     {translateX: position.value / 2},
-  //     {scale: scaleAnimation.value},
-  //     {rotateZ: `${position.value / 30}deg`},
-  //   ],
+    .onEnd(e => {
+      if (position.value > 50) {
+        position.value = withTiming(0, {duration: 100});
+        runOnJS(prevHandler)();
+      } else if (position.value < -50) {
+        position.value = withTiming(0, {duration: 100});
+        runOnJS(nextHandler)();
+      } else {
+        position.value = withTiming(0, {duration: 100});
+      }
+      scaleAnimation.value = withSpring(1);
+    });
 
-  //   backgroundColor: interpolateColor(
-  //     position.value,
-  //     [-300, 0, 300],
-  //     ['rgba(241, 114, 114, 0)', 'rgba(50, 50, 50, 1)', 'rgba(96, 255, 56, 0)'],
-  //   ),
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [
+      {translateX: position.value / 2},
+      {scale: scaleAnimation.value},
+      {rotateZ: `${position.value / 30}deg`},
+    ],
 
-  //   borderRadius: interpolate(position.value, [-300, 0, 300], [20, 0, 20]),
-  // }));
+    backgroundColor: interpolateColor(
+      position.value,
+      [-300, 0, 300],
+      ['rgba(241, 114, 114, 0)', 'rgba(50, 50, 50, 1)', 'rgba(96, 255, 56, 0)'],
+    ),
+
+    borderRadius: interpolate(position.value, [-300, 0, 300], [20, 0, 20]),
+  }));
 
   return (
-    <View style={{height: '100%'}}>
-      {data.map(({id, name, text}, index) => {
-        return (
-          <View
-            key={id}
-            style={{alignItems: 'center', justifyContent: 'center'}}>
-            {activeId === index ? (
-              <View
-                style={[
-                  styles.card,
-                  {width, zIndex: 2, backgroundColor: 'tomato', height},
-                ]}>
-                <Text>{name}</Text>
-                <Text>{index}</Text>
-                <Text>{text}</Text>
-              </View>
-            ) : activeId > index ? (
-              <View style={{zIndex: 0}}></View>
-            ) : (
-              <View style={[styles.card, {width, zIndex: 1}]}>
-                <Text>{name}</Text>
-                <Text>{text}</Text>
-              </View>
-            )}
+    <GestureDetector gesture={panGesture}>
+      <View
+        style={{
+          height,
+          backgroundColor: 'black',
+        }}>
+        <ScrollView>
+          <View style={{height: '100%'}}>
+            {data.map(({id, name, text}, index) => {
+              return (
+                <View
+                  key={id}
+                  style={[{alignItems: 'center', justifyContent: 'center'}]}>
+                  {activeId === index ? (
+                    <Animated.View
+                      style={[
+                        animatedStyle,
+                        styles.card,
+                        {width, zIndex: 2, backgroundColor: 'tomato'},
+                      ]}>
+                      <Text style={styles.text}>{name}</Text>
+                      <Text style={styles.text}>{index}</Text>
+                      <Text style={styles.text}>{text}</Text>
+                    </Animated.View>
+                  ) : activeId > index ? (
+                    <View style={{zIndex: 0}}></View>
+                  ) : (
+                    <View style={[styles.card, {width, zIndex: 1}]}>
+                      <Text style={styles.text}>{name}</Text>
+                      <Text style={styles.text}>{text}</Text>
+                    </View>
+                  )}
+                </View>
+              );
+            })}
           </View>
-        );
-      })}
-      <View style={{flexDirection: 'row', position: 'absolute', bottom: 0}}>
-        <Button title="prev" onPress={() => setActiveId(activeId - 1)} />
-        <Button title="next" onPress={() => setActiveId(activeId + 1)} />
+        </ScrollView>
       </View>
-    </View>
-
-    // <GestureDetector gesture={panGesture}>
-    //   <View
-    //     style={{
-    //       height,
-    //       backgroundColor: 'black',
-    //     }}>
-    //     <ScrollView>
-    //       <Animated.View style={[animatedStyle, styles.card, {width}]}>
-    //         <Text style={styles.text}>{data[activeId].name}</Text>
-    //         <Text style={styles.text}>{data[activeId].text}</Text>
-    //       </Animated.View>
-    //     </ScrollView>
-    //   </View>
-    // </GestureDetector>
+    </GestureDetector>
   );
 };
 
