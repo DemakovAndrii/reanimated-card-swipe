@@ -28,6 +28,7 @@ const SliderCompMap = () => {
 
   const position = useSharedValue(0);
   const scaleAnimation = useSharedValue(1);
+  const translateAnimation = useSharedValue(0);
 
   const nextHandler = () => {
     if (activeId + 1 < data.length) {
@@ -43,6 +44,7 @@ const SliderCompMap = () => {
   const panGesture = Gesture.Pan()
     .onUpdate(e => {
       position.value = e.translationX;
+      translateAnimation.value = position.value;
       if (position.value > 0) {
         scaleAnimation.value = withSpring(1 - position.value * 0.0004);
       } else {
@@ -53,19 +55,27 @@ const SliderCompMap = () => {
     .onEnd(e => {
       if (position.value > 50) {
         position.value = withTiming(0, {duration: 100});
+        translateAnimation.value = 300;
+
         runOnJS(prevHandler)();
       } else if (position.value < -50) {
         position.value = withTiming(0, {duration: 100});
+        translateAnimation.value = -300;
+
         runOnJS(nextHandler)();
       } else {
         position.value = withTiming(0, {duration: 100});
+        translateAnimation.value = 0;
       }
       scaleAnimation.value = withSpring(1);
     });
 
-  const animatedStyle = useAnimatedStyle(() => ({
+  const activeCardStyle = useAnimatedStyle(() => ({
     transform: [
-      {translateX: position.value / 2},
+      {
+        translateX: translateAnimation.value,
+        // interpolate(position.value, [-300, 0, 300], [-100, 0, 100])
+      },
       {scale: scaleAnimation.value},
       {rotateZ: `${position.value / 30}deg`},
     ],
@@ -83,40 +93,36 @@ const SliderCompMap = () => {
     <GestureDetector gesture={panGesture}>
       <View
         style={{
-          height,
           backgroundColor: 'black',
+          height: '100%',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}>
-        <ScrollView>
-          <View style={{height: '100%'}}>
-            {data.map(({id, name, text}, index) => {
-              return (
-                <View
-                  key={id}
-                  style={[{alignItems: 'center', justifyContent: 'center'}]}>
-                  {activeId === index ? (
-                    <Animated.View
-                      style={[
-                        animatedStyle,
-                        styles.card,
-                        {width, zIndex: 2, backgroundColor: 'tomato'},
-                      ]}>
-                      <Text style={styles.text}>{name}</Text>
-                      <Text style={styles.text}>{index}</Text>
-                      <Text style={styles.text}>{text}</Text>
-                    </Animated.View>
-                  ) : activeId > index ? (
-                    <View style={{zIndex: 0}}></View>
-                  ) : (
-                    <View style={[styles.card, {width, zIndex: 1}]}>
-                      <Text style={styles.text}>{name}</Text>
-                      <Text style={styles.text}>{text}</Text>
-                    </View>
-                  )}
-                </View>
-              );
-            })}
-          </View>
-        </ScrollView>
+        <Animated.View
+          style={[
+            // activeCardStyle,
+            {
+              width: 300,
+              height: 450,
+              backgroundColor: 'tomato',
+              // position: 'absolute',
+              // zIndex: 100,
+            },
+          ]}>
+          {/* <Text>{data[activeId].name}</Text> */}
+          {/* <Text>{data[activeId].text}</Text> */}
+        </Animated.View>
+        {/* <View
+          style={{
+            width: 300,
+            height: 450,
+            backgroundColor: 'tomato',
+            position: 'absolute',
+            zIndex: 1,
+          }}>
+          <Text>{data[activeId + 1].name}</Text>
+          <Text>{data[activeId + 1].text}</Text>
+        </View> */}
       </View>
     </GestureDetector>
   );
@@ -134,6 +140,6 @@ const styles = StyleSheet.create({
     fontSize: 32,
     maxWidth: 300,
     textAlign: 'center',
-    lineHeight: 285,
+    // lineHeight: 285,
   },
 });

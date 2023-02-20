@@ -3,42 +3,30 @@
     "id": 1,
     "name": "name1",
     "text": "texttexttexttexttexttexttexttexttexttextdsadastexttexttexttexttexttexttexttexttexttexttextdsadastext",
-    "photo": "ph.png"
+    "photo": "https://avatars.githubusercontent.com/u/62080449?s=80&v=4"
   },
   {
     "id": 2,
     "name": "name2",
     "text": "texttexttexttexttexttexttexttexttexttextdsadastexttexttexttexttexttexttexttexttexttexttextdsadastext",
-    "photo": "ph.png"
+    "photo": "https://avatars.githubusercontent.com/u/1039823?s=64&v=4"
   },
   {
     "id": 3,
     "name": "name3",
     "text": "texttexttexttexttexttexttexttexttexttextdsadastext",
-    "photo": "ph.png"
+    "photo": "https://avatars.githubusercontent.com/u/58149829?s=80&v=4"
   },
   {
     "id": 4,
     "name": "name4",
     "text": "texttexttextttexttexttexttexttexttexttexttexttexttextdsadastextextext",
-    "photo": "ph.png"
+    "photo": "https://avatars.githubusercontent.com/u/867068?s=64&v=4"
   },
   {
     "id": 5,
     "name": "name5",
     "text": "texttexttextttexttexttexttexttexttexttexttexttexttextdsadastextexttexttexttexttexttext",
-    "photo": "ph.png"
-  },
-  {
-    "id": 6,
-    "name": "name6",
-    "text": "texttexttexttextexttexttexttexttexttexttexttexttexttextdsadastextttexttexttexttexttexttexttexttexttexttexttexttext",
-    "photo": "ph.png"
-  },
-  {
-    "id": 7,
-    "name": "name7",
-    "text": "texttexttexttexttexttexttexttexttexttexttexttexttexttextdsadastexttexttexttexttext",
-    "photo": "ph.png"
+    "photo": "https://avatars.githubusercontent.com/u/9513490?s=80&v=4"
   }
 ]
